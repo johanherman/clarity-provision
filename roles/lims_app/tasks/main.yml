@@ -1,0 +1,12 @@
+- include: 000-prereqs.yml
+- include: 001-install-clarity.yml
+- include: 010-configure-clarity.yml
+- include: 020-install-certs.yml
+- include: 030-install-ngs.yml
+- include: 040-configure-seq.yml
+- include: 050-mount-seq-shares.yml
+- include: 060-clarity-ext.yml
+- include: 065-clarity-snpseq.yml
+- include: 070-config-access.yml
+- include: 080-config-ui.yml
+- include: 999-workarounds.yml

@@ -1,0 +1,11 @@
+# Our staging environment
+
+[lims:children]
+lims-app
+lims-db
+
+[lims-app]
+lims-staging.fqdn
+
+[lims-db]
+lims-db-staging.fqdn

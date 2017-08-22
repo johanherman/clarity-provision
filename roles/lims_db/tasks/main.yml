@@ -1,0 +1,2 @@
+- include: postgres-install.yml
+- include: postgres-config.yml

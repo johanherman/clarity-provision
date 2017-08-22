@@ -1,0 +1,90 @@
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.bcl.netPathPrefixReplace.1 '/mnt/run_data' 'The mapped network directory mount name on the server used to access the process run ne
+twork directory. Eg. /mnt/run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.bcl.netPathPrefixReplace.99 '/mnt/run_data' 'The mapped network directory mount name on the server used to access the process run n
+etwork directory. Eg. /mnt/run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.bcl.netPathPrefixSearch.1 '\\nas\network\run_data' 'The network directory prefix contained in the event which is most likely in Win
+dows format. Eg. \\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.bcl.netPathPrefixSearch.99 '\\nas\network\run_data' 'The network directory prefix contained in the event which is most likely in Wi
+ndows format. Eg. \\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.bcl.replacementSuffixes.bclserver '99' 'Network replacement(s) associated with BCL EPP Channel.  The value is one or more comma sep
+arated integers.  The property format is bcl.replacementSuffixes.<EPP_CHANNEL_NAME>'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.eventFileDirectory.1 '/mnt/gls_events' 'A network location monitored for event files; e.g. /mnt/illumina/gls_events/'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.eventFileDirectory.2 '/mnt/gls_events' 'A network location monitored for event files; e.g. /mnt/illumina/gls_events/'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.eventFileDirectory.3 '/mnt/gls_events' 'A network location monitored for event files; e.g. /mnt/illumina/gls_events/'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.eventFileDirectory.4 '/mnt/gls_events' 'A network location monitored for event files; e.g. /mnt/illumina/gls_events/'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.eventFileDirectorySuffixes '99' 'A list of eventFileDirectory paths monitored for event files. The value is one or more 
+comma separated integers.'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.ignoreUnmatchedContainerIds 'false' 'A flag indicating if event files containing unmatched flow cell ids in GLS LIMS sho
+uld be ignored.'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.ignoreUnmatchedContainerIdsWaitDays '14' 'The elapsed days after the event has been created before the event file is ign
+ored.'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixReplace.1 '/mnt/run_data' 'The mapped network directory mount name on the server used to access the process
+ run network directory. Eg. /mnt/run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixReplace.10 '/mnt/run_data' 'The mapped network directory mount name on the server used to access the proces
+s run network directory. Eg. /mnt/run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixReplace.2 '/mnt/run_data' 'The mapped network directory mount name on the server used to access the process
+ run network directory. Eg. /mnt/run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixReplace.3 '/mnt/run_data' 'The mapped network directory mount name on the server used to access the process
+ run network directory. Eg. /mnt/run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixReplace.4 '/mnt/run_data' 'The mapped network directory mount name on the server used to access the process
+ run network directory. Eg. /mnt/run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixReplace.5 '/mnt/run_data' 'The mapped network directory mount name on the server used to access the process
+ run network directory. Eg. /mnt/run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixReplace.6 '/mnt/run_data' 'The mapped network directory mount name on the server used to access the process
+ run network directory. Eg. /mnt/run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixReplace.7 '/mnt/run_data' 'The mapped network directory mount name on the server used to access the process
+ run network directory. Eg. /mnt/run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixReplace.8 '/mnt/run_data' 'The mapped network directory mount name on the server used to access the process
+ run network directory. Eg. /mnt/run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixReplace.9 '/mnt/run_data' 'The mapped network directory mount name on the server used to access the process
+ run network directory. Eg. /mnt/run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixSearch.1 '\\nas\network\run_data' 'The network directory prefix contained in the event which is most likely in Windows format. Eg. \\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixSearch.10 '\\nas\network\run_data' 'The network directory prefix contained in the event which is most likely in Windows format. Eg. \\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixSearch.2 '\\nas\network\run_data' 'The network directory prefix contained in the event which is most likely in Windows format. Eg. \\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixSearch.3 '\\nas\network\run_data' 'The network directory prefix contained in the event which is most likely in Windows format. Eg. \\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixSearch.4 '\\nas\network\run_data' 'The network directory prefix contained in the event which is most likely in Windows format. Eg. \\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixSearch.5 '\\nas\network\run_data' 'The network directory prefix contained in the event which is most likely in Windows format. Eg. \\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixSearch.6 '\\nas\network\run_data' 'The network directory prefix contained in the event which is most likely in Windows format. Eg. \\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixSearch.7 '\\nas\network\run_data' 'The network directory prefix contained in the event which is most likely in Windows format. Eg. \\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixSearch.8 '\\nas\network\run_data' 'The network directory prefix contained in the event which is most likely in Windows format. Eg. \\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixSearch.9 '\\nas\network\run_data' 'The network directory prefix contained in the event which is most likely in Windows format. Eg. \\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.netPathPrefixSearchReplaceSuffixes '99' 'A list of prefix search and replacement strings for transforming Windows to Linux network paths. The value is one or more comma separated integers.'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.runReportViewsVersion '0' 'The current version of the Run Report views in the database.  The value 0 represents the state before the views are created. This property is automatically updated by the run report.'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.sequenceProcessBaseName 'Illumina Sequencing (Illumina SBS)' 'Sequencing process type base display name for partial term matching.'
+java -jar omxprops-ConfigTool.jar addPropertyType -y -f {{ lims_app_hostname }} -g hiseqga.seqservice.synchronizationPeriod '60' 'Invocation period in seconds.'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.bcl.netPathPrefixReplace.1 '/mnt/run_data'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.bcl.netPathPrefixReplace.99 '/mnt/run_data'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.bcl.netPathPrefixSearch.1 '\\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.bcl.netPathPrefixSearch.99 '\\nas\network\run_data'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.bcl.replacementSuffixes.bclserver '99'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.eventFileDirectory.1 '/mnt/clarity/gls_events_hiseq3'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.eventFileDirectory.2 '/mnt/clarity/gls_events_hiseq4'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.eventFileDirectory.3 '/mnt/clarity/gls_events_hiseq5'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.eventFileDirectory.4 '/mnt/clarity/gls_events_hiseq6'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.eventFileDirectorySuffixes '1,2,3,4'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.ignoreUnmatchedContainerIds 'false'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.ignoreUnmatchedContainerIdsWaitDays '14'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixReplace.1 '/mnt/sequencing/biotank5/runfolders/'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixReplace.10 '/mnt/sequencing/biotank14/runfolders/'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixReplace.2 '/mnt/sequencing/biotank6/runfolders/'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixReplace.3 '/mnt/sequencing/biotank7/runfolders/'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixReplace.4 '/mnt/sequencing/biotank8/runfolders/'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixReplace.5 '/mnt/sequencing/biotank9/runfolders/'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixReplace.6 '/mnt/sequencing/biotank10/runfolders/'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixReplace.7 '/mnt/sequencing/biotank11/runfolders/'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixReplace.8 '/mnt/sequencing/biotank12/runfolders/'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixReplace.9 '/mnt/sequencing/biotank13/runfolders/'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixSearch.1 'K:\runfolders\'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixSearch.10 'V:\runfolders\'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixSearch.2 'L:\runfolders\'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixSearch.3 'M:\runfolders\'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixSearch.4 'N:\runfolders\'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixSearch.5 'P:\runfolders\'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixSearch.6 'Q:\runfolders\'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixSearch.7 'R:\runfolders\'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixSearch.8 'T:\runfolders\'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixSearch.9 'U:\runfolders\'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.netPathPrefixSearchReplaceSuffixes '1,2,3,4,5,6,7,8,9,10'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.runReportViewsVersion '0'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.sequenceProcessBaseName 'Illumina Sequencing (Illumina SBS)'
+java -jar omxprops-ConfigTool.jar set -y -f {{ lims_app_hostname }}  hiseqga.seqservice.synchronizationPeriod '60'

@@ -1,0 +1,6 @@
+#!/bin/bash
+# Temporary hack, on centos, we must use ftp with the -A option.
+# This will be removed later when we'll change the code to use
+# non-platform specific code for ftp'ing.
+ftp -A "$@"
+

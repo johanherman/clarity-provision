@@ -1,0 +1,12 @@
+# Our actual production environment
+
+[lims:children]
+lims-app
+lims-db
+
+[lims-app]
+lims.fqdn
+
+[lims-db]
+lims-db.fqdn
+

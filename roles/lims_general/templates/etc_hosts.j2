@@ -1,0 +1,11 @@
+# /etc/hosts
+# Only to be deployed on Vagrantboxes 
+# Preferably these entries should then also be replicated on the SNPSEQ local 
+# DNS server, so that the SSL certs works as expected.
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+{% for host in groups['lims'] %}
+    {{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}  {{ hostvars[host]['ansible_hostname'] }} {{ hostvars[host]['ansible_hostname'] }}.snpseq.medsci.uu.se
+{% endfor %}
+

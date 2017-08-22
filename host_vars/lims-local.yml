@@ -1,0 +1,7 @@
+lims_app_server_ip: 192.168.42.101
+lims_db_server_ip: 192.168.42.102
+snpseq_network: 192.168.0.0
+
+# these are bound to 127.0.0.1 in /etc/hosts
+lims_app_hostname: lims-local.snpseq.medsci.uu.se 
+lims_db_hostname: lims-db-local.snpseq.medsci.uu.se

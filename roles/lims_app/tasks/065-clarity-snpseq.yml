@@ -1,0 +1,43 @@
+# Will only work with an SSH key that has read access to clarity-snpseq repo 
+- name: get clarity-snpseq from git
+  git:
+    repo: "ssh://git@github.com/Molmed/clarity-snpseq.git"
+    dest: "/tmp/clarity-snpseq"
+    version: "develop"
+    force: yes
+    accept_hostkey: yes
+
+- name: install clarity-snpseq requirements
+  pip:
+    requirements: "/tmp/clarity-snpseq/requirements/dev"
+    chdir: "/tmp/clarity-snpseq"
+    virtualenv: "{{ lims_venv }}"
+    state: present
+    extra_args: "-U"
+  become: true
+  become_user: glsai
+
+- name: install clarity-snpseq
+  pip:
+    name: .
+    chdir: "/tmp/clarity-snpseq/"
+    virtualenv: "{{ lims_venv }}"
+    state: present
+    extra_args: "-U"
+  become: true
+  become_user: glsai
+
+- name: check if customextensions has been deployed
+  stat:
+    path: "/opt/gls/clarity/customextensions"
+  register: customextensions
+
+- name: remove old version of customextensions
+  file:
+    state: absent
+    path: "/opt/gls/clarity/customextensions"
+  when: customextensions.stat.exists
+
+- name: copy new customextensions to proper place
+  shell: "cp -R /tmp/clarity-snpseq/custom-scripts/customextensions /opt/gls/clarity/customextensions && chown -R glsai /opt/gls/clarity/customextensions"
+  tags: skip_ansible_lint

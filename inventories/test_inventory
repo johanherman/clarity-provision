@@ -1,0 +1,13 @@
+# Virtual test machines defined in the Vagrant file
+
+[lims:children]
+lims-app
+lims-db
+
+[lims-db]
+lims-db-local
+
+[lims-app]
+lims-local
+
+

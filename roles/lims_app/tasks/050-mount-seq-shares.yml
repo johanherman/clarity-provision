@@ -1,0 +1,22 @@
+- name: create group with write access to samba mount
+  group: name=writegroup gid=4242 state=present
+
+- name: add glsjboss to writegroup group
+  user: name=glsjboss groups=writegroup state=present append=yes
+
+- name: create dirs to mount on top of
+  file: path={{ item }} state=directory
+  with_items:
+    - /mnt/clarity
+    - /mnt/sequencing
+
+- name: deploy samba credentials
+  template: src=smb_credentials.j2 dest=/root/.smb_credentials
+
+# TODO: Mock the mounting in an appropriate way on Vagrant boxes in the future
+- name: mount dirs
+  mount: fstype=cifs dump=0 passno=0 src="//samba.host.fqdn/{{ item }}" name="/mnt/{{ item }}" opts="credentials=/root/.smb_credentials,_netdev" state=mounted
+  with_items:
+    - clarity
+    - sequencing
+

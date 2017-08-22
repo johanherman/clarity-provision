@@ -1,0 +1,22 @@
+- name: install Clarity NGS packages
+  yum: name={{ item }} state=present enablerepo={{ lims_repo_name }} update_cache=yes
+  with_items:
+    - "{{ lims_ngs_packages }}"
+
+- name: (re)start services
+  shell: /opt/gls/clarity/bin/run_clarity.sh stop || true; /opt/gls/clarity/bin/run_clarity.sh start
+  tags: skip_ansible_lint
+
+- name: configure workflows
+  shell: "{{ item }}"
+  become: true
+  become_user: glsjboss
+  with_items:
+    - /opt/gls/clarity/config/configure_extensions_hiseqx_sequencingservice-v1.sh
+    - /opt/gls/clarity/config/configure_extensions_illumina_hiseqx_file_workflow-v1.sh
+    - /opt/gls/clarity/config/configure_extensions_ngscommon_workflow-v5.sh
+    - /opt/gls/clarity/config/configure_extensions_hiseqgaii_sequencingservice-v5.sh
+    - /opt/gls/clarity/config/configure_extensions_illumina_hiseqgaii_workflow-v5.sh
+    - /opt/gls/clarity/config/configure_extensions_miseq_sequencingservice-v5.sh
+    - /opt/gls/clarity/config/configure_extensions_illumina_miseq_workflow-v5.sh
+  tags: skip_ansible_lint

@@ -1,0 +1,11 @@
+
+lims_app_server_ip: "{{ lookup('dig', groups['lims-app'][0]) }}"
+lims_db_server_ip: "{{ lookup('dig', groups['lims-db'][0]) }}"
+lims_db_hostname: "{{ groups['lims-db'][0] }}"
+lims_app_hostname: "{{ groups['lims-app'][0] }}"
+
+lims_db_name: ClarityDB
+lims_lookup_db_name: ClarityTenantLookup
+
+lims_admin_mail: email-address-to-admin
+

@@ -1,0 +1,15 @@
+- name: configure certs
+  include: 021-prepare-certs.yml
+
+- name: install certs
+  expect:
+    command: /opt/gls/clarity/config/installCertificates.sh
+    responses:
+      Enter the full path to the Java Keystore file.*: "{{ lims_clarity_cert_dir }}/keystore.jks"
+      Enter the full path to the SSL Private Key for your server.*: "{{ lims_clarity_cert_dir }}/private.key"
+      Enter the full path to the Apache Certificate for your server.*: "{{ lims_clarity_cert_dir }}/certificate.cer"
+      Do you have a SSL Vendor Chain File to use.*: "Y"
+      Enter the full path to the SSL Vendor Chain file*: "{{ lims_clarity_ssl_dir }}/DigiCertCA.crt"
+      Apache Proxy is ready.*: ""
+    timeout: 10
+

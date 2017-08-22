@@ -1,0 +1,12 @@
+- include: 061-clarity-ext-prereqs.yml
+
+- name: install clarity-ext
+  pip:
+    virtualenv: "{{ lims_venv }}"
+    name: git+git://github.com/molmed/clarity-ext.git#egg=develop
+    extra_args: "-U"
+    state: present
+  become: true
+  become_user: glsai
+
+# TODO: Perhaps install from local mountpoint in the future when running in vagrant box

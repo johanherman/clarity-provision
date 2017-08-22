@@ -1,0 +1,24 @@
+
+# Lims role settings
+
+lims_repo_name: GLS*
+lims_app_packages:
+  - ClarityLIMS-App-4.2.10.122*
+  - ClarityLIMS-Server-4.2.1.3*
+lims_ngs_packages:
+  - ClarityLIMS-NGS-Package-v5-5.13.1*
+  - ClarityLIMS-Protocols-1.2.1.6*
+  - ClarityLIMS-Illumina-HiSeq-Package-v5-5.5.2.3*
+  - ClarityLIMS-Illumina-HiSeq-X-File-Package-v1-1.*
+  - ClarityLIMS-Illumina-MiSeq-Package-v5-5*
+    #  - ClarityLIMS-Illumina-MiSeq*
+
+lims_api_baseuri: http://localhost:9080
+
+lims_clarity_conf_dir: /clarity-configure
+
+# Certs under `files` dir needs to be replaced with proper ones 
+lims_clarity_ssl_dir: "{{ lims_clarity_conf_dir }}/ssl"
+lims_clarity_cert_dir: "{{ lims_clarity_ssl_dir }}/out"
+
+

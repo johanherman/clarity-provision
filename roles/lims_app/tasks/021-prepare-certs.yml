@@ -1,0 +1,42 @@
+- name: create clarity-configure dir
+  file: path={{ lims_clarity_conf_dir }} state=directory
+
+- name: upload ssl files to host
+  copy: src=files/ssl dest={{ lims_clarity_conf_dir }}
+
+- name: create cert dir
+  file: path="{{ lims_clarity_cert_dir }}/out" state=directory
+
+- name: remove old files
+  file: path={{ item }} state=absent
+  with_items:
+    - "{{ lims_clarity_cert_dir }}/{{ lims_cert_prefix }}.pem"
+    - "{{ lims_clarity_cert_dir }}/{{ lims_cert_prefix }}.p12"
+    - "{{ lims_clarity_cert_dir }}/keystore.jks"
+    - "{{ lims_clarity_cert_dir }}/certificate.cer"
+    - "{{ lims_clarity_cert_dir }}/private.key"
+
+- name: Creating .pem file...
+  shell: openssl pkcs7 -print_certs -in {{ lims_clarity_ssl_dir }}/java/{{ lims_cert_prefix }}.p7b -out {{ lims_clarity_cert_dir }}/{{ lims_cert_prefix }}.pem
+  tags: skip_ansible_lint
+
+- name: Creating .p12 file...
+  shell: openssl pkcs12 -passout pass:genologics -export -name {{ lims_app_hostname }} -in {{ lims_clarity_cert_dir }}/{{ lims_cert_prefix }}.pem -inkey {{ lims_clarity_ssl_dir}}/{{ lims_cert_prefix }}.key -out {{ lims_clarity_cert_dir }}/{{ lims_cert_prefix }}.p12
+  tags: skip_ansible_lint
+
+- name: Creating keystore
+  expect:
+    command: /opt/gls/clarity/bin/keytool -importkeystore -srcstoretype pkcs12 -srckeystore {{ lims_clarity_cert_dir }}/{{ lims_cert_prefix }}.p12 -destkeystore {{ lims_clarity_cert_dir }}/keystore.jks
+    responses:
+      Enter destination keystore password.*: "genologics"
+      Re-enter new password.*: "genologics"
+      Enter source keystore password.*: "genologics"
+      Import command completed: ""
+
+- name: Creating .cer file...
+  shell: openssl pkcs7 -print_certs -in {{ lims_clarity_ssl_dir }}/java/{{ lims_cert_prefix }}.p7b -out {{ lims_clarity_cert_dir }}/certificate.cer
+  tags: skip_ansible_lint
+
+- name: Copy the rest of required files to the cert directory
+  shell: cp {{ lims_clarity_ssl_dir }}/{{ lims_cert_prefix }}.key {{ lims_clarity_cert_dir }}/private.key
+  tags: skip_ansible_lint

@@ -1,0 +1,33 @@
+
+
+- name: deploy postgres authentication config
+  template: src="pg_hba.conf.j2" dest="/var/lib/pgsql/9.4/data/pg_hba.conf"
+  notify: restart postgres
+
+- name: deploy postgres server config
+  copy: src="postgresql.conf" dest="/var/lib/pgsql/9.4/data/postgresql.conf"
+  notify: restart postgres
+
+- name: deploy postgres ident config
+  copy: src="pg_ident.conf" dest="/var/lib/pgsql/9.4/data/pg_ident.conf"
+  notify: restart postgres
+
+- name: force a restart of service for permissions to get updated
+  service: name=postgresql-9.4 state=restarted
+
+- name: create primary lims db user/role
+  postgresql_user:
+    name: "{{ lims_user.name }}"
+    role_attr_flags: NOSUPERUSER,CREATEDB,NOCREATEROLE,LOGIN
+
+- name: create primary database as lims user
+  postgresql_db:
+    name: "{{ lims_db_name }}"
+    owner: "{{ lims_user.name }}"
+  notify: restart postgres
+
+- name: create tentant lookup database as lims user
+  postgresql_db:
+    name: "{{ lims_lookup_db_name }}"
+    owner: "{{ lims_user.name }}"
+  notify: restart postgres

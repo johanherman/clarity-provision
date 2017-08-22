@@ -1,0 +1,23 @@
+# PostgreSQL Client Authentication Configuration File
+# ===================================================
+#
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# "local" is for Unix domain socket connections only
+local   all             all                                     peer map=super_users
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            ident map=super_users
+
+# Lock the clarity user to the app server and trust the login (password less)
+host    {{ lims_db_name }}        {{ lims_user.name }}         {{ lims_app_server_ip }}/32      trust
+host    {{ lims_lookup_db_name }} {{ lims_user.name }}     {{ lims_app_server_ip }}/32      trust
+
+# IPv6 local connections:
+host    all             all             ::1/128                 ident
+
+# Allow replication connections from localhost, by a user with the
+# replication privilege.
+#local   replication     postgres                                peer
+#host    replication     postgres        127.0.0.1/32            ident
+#host    replication     postgres        ::1/128                 ident
+

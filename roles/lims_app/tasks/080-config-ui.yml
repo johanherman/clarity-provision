@@ -1,0 +1,38 @@
+- name: Set tmp env var when in dev
+  set_fact:
+    lims_env: dev
+  when: ansible_hostname == 'lims-dev'
+
+- name: Set tmp env var when in staging
+  set_fact:
+    lims_env: staging
+  when: ansible_hostname == 'lims-staging'
+
+- name: Set tmp env var when in production
+  set_fact:
+    lims_env: prod
+  when: ansible_hostname == 'lims'
+
+- name: Set tmp env var when in test
+  set_fact:
+    lims_env: test
+  when: ansible_hostname == 'lims-local'
+
+- name: Set title in UI depending on which environment we are in
+  lineinfile:
+    dest: /opt/gls/clarity/glscontents/ri-webstart/customText.properties
+    line: "product.name=Clarity {{ lims_env }}"
+    owner: glsjboss
+    group: claritylims
+  notify:
+    - restart jboss
+
+- name: Set title in UI depending on which environment we are in
+  lineinfile:
+    dest: /opt/gls/clarity/glscontents/ri-webstart/customText.properties
+    line: "webstart.title=Clarity {{ lims_env }}"
+    owner: glsjboss
+    group: claritylims
+  notify:
+    - restart jboss
+

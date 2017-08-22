@@ -1,0 +1,45 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Script for bootstraping the keys to the virtual
+# # machines.
+require_relative "../vagrant/key_authorization"
+
+Vagrant.configure(2) do |config|
+  # Ensure that the VMs can reach each other
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.ignore_private_ip = false
+ # config.ssh.insert_key = false  # Temporary, https://github.com/mitchellh/vagrant/issues/7610
+
+  config.vm.define "lims" do |server|
+    server.vm.box = "bento/centos-6.7"
+    # server.vm.box_version = "20150909.1.0"  # TODO: Lock version
+    server.vm.hostname = "lims-local"
+    server.vm.network :private_network, ip: '192.168.42.101'
+  
+    authorize_key_for_root config, 'root', '~/.ssh/id_dsa.pub', '~/.ssh/id_rsa.pub'
+
+    server.vm.provider "virtualbox" do |v|
+      v.memory = 8192
+      v.cpus = 2
+      v.customize ["modifyvm", :id, "--ioapic", "on"]
+    end
+#    server.vm.synced_folder ".", "/clarity-configure"
+#    server.vm.synced_folder "../clarity-ext", "/clarity-ext"
+#, owner: "glsai"
+#    server.vm.synced_folder "../clarity-snpseq", "/clarity-snpseq"
+#, owner: "glsai"
+  end
+
+  config.vm.define "lims-db" do |server|
+    server.vm.box = "bento/centos-6.7"
+  
+    authorize_key_for_root config, 'root', '~/.ssh/id_dsa.pub', '~/.ssh/id_rsa.pub'
+
+    server.vm.hostname = "lims-db-local"
+    server.vm.network :private_network, ip: '192.168.42.102'
+#    server.vm.synced_folder ".", "/clarity-configure"
+  end
+end
+

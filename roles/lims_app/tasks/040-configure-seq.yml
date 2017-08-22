@@ -1,0 +1,20 @@
+- name: deploy seq/hiseq/miseq config script to host
+  template: src={{ item.src }} dest=/tmp/{{ item.dest }} mode=u+x
+  with_items:
+    - { src: config-seq.j2, dest: config-seq }
+    - { src: config-hiseq.j2, dest: config-hiseq }
+    - { src: config-miseq.j2, dest: config-miseq }
+
+# TODO: These scripts doesn't have to be rerun if:
+# 1) they have previously been run
+# 2) and nothing has been updated in the script
+- name: run seq/hiseq/miseq config script
+  shell: /tmp/{{ item }}
+  args:
+    chdir: /opt/gls/clarity/tools/propertytool
+    #creates: foo
+  with_items:
+    - config-seq
+    - config-hiseq
+    - config-miseq
+  tags: skip_ansible_lint

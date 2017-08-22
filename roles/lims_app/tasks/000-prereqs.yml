@@ -1,0 +1,22 @@
+- name: install pip
+  shell: curl -q https://bootstrap.pypa.io/get-pip.py | python -
+  args:
+    warn: false
+  tags: skip_ansible_lint
+
+- name: install pexpect for scripts that require user input
+  pip: name=pexpect state=present
+
+- name: install required system packages
+  yum: name="{{ item}}" state=present
+  with_items:
+    - git
+    - ftp
+    - cifs-utils
+
+- name: install postgresql client
+  yum: name=postgresql94 state=present
+
+- name: validate if we can reach db server and execute query
+  shell: psql -h {{ lims_db_server_ip }} -U {{ lims_user.name }} -d {{ lims_db_name }} -c "SELECT COUNT(*) from pg_tables"
+  tags: skip_ansible_lint

@@ -1,0 +1,11 @@
+# Our dev environment
+
+[lims:children]
+lims-app
+lims-db
+
+[lims-app]
+lims-dev.fqdn
+
+[lims-db]
+lims-db-dev.fqdn

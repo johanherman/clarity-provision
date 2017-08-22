@@ -1,0 +1,8 @@
+- name: Temporary set DH bits so SEQ integration service can push to prod in Centos 6.9
+  lineinfile:
+    dest: /etc/pki/tls/legacy-settings
+    line: "MinimumDHBits 768"
+    create: yes
+  notify:
+    - restart httpd
+

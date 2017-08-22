@@ -1,0 +1,4 @@
+# Currently used for dumping the postgres db for backup purposes
+psql_user: postgres
+psql_dump_path: /var/postgresql_dumps
+

@@ -1,0 +1,33 @@
+
+- name: remove postgresql packages from centos base repo
+  ini_file:
+    dest: /etc/yum.repos.d/CentOS-Base.repo
+    section: base
+    option: exclude
+    value: postgresql*
+    backup: yes
+
+- name: remove postgresql packages from centos updates repo
+  ini_file:
+    dest: /etc/yum.repos.d/CentOS-Base.repo
+    section: updates
+    option: exclude
+    value: postgresql*
+    backup: yes
+
+- name: add postgresql from official rpm package
+  yum: name="{{ postgres_rpm_url }}" state=present
+
+- name: install postgres adaptor for python
+  yum: name="python-psycopg2" state=present
+
+- name: set timezone variable TZ
+  copy: src="TZ_var.sh" dest="/etc/profile.d/TZ_var.sh" mode=0644
+
+- name: add main lims user
+  user: name={{ lims_user.name }} state=present password={{ lims_user.password }} update_password=always
+
+- name: deploy /etc/hosts so we can resolve fqdn for private ip in vagrantboxes
+  template: src=etc_hosts.j2 dest=/etc/hosts backup=yes
+  when: ansible_virtualization_type == "virtualbox"
+

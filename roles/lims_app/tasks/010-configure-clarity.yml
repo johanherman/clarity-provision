@@ -1,0 +1,81 @@
+- name: configure claritylims appserver
+  expect:
+    command: /opt/gls/clarity/config/pending/10_configure_claritylims_appserver.sh
+    responses:
+      Enter required value for fully qualified host name or IP Address for Clarity LIMS server*: "{{ lims_app_hostname }}"
+      Enter required value for fully qualified host name or IP Address for the Mail Relay*: "{{ smtp_gateway }}"
+      Enter an integer value for Maximum RAM for JBoss in MB, greater than, or equal to 2048*: "4096"
+      Enter an integer value for Maximum RAM for Tomcat in MB, greater than, or equal to 2048*: "4096"
+    removes: /opt/gls/clarity/config/pending/10_configure_claritylims_appserver.sh
+  become: true
+  become_user: glsjboss
+
+- name: configure claritylims platform
+  expect:
+    command: /opt/gls/clarity/config/pending/20_configure_claritylims_platform.sh
+    responses:
+      Select database server type.*: "2"
+      Enter required value for fully qualified host name or IP Address for database host.*: "{{ lims_db_hostname }}"
+      Enter required value for tenant database port.*: "5432"
+      Enter required value for Clarity LIMS tenant database name.*: "{{ lims_lookup_db_name }}"
+      Enter required value for Clarity LIMS tenant database username.*: "{{ lims_user.name }}"
+      Enter password value for Clarity LIMS tenant database password.*: "trusted-connection"
+      Confirm password value for Clarity LIMS tenant database password.*: "trusted-connection"
+      .*SUCCESS.*Migrator finished successfully: ""
+    removes: /opt/gls/clarity/config/pending/20_configure_claritylims_platform.sh
+  become: true
+  become_user: glsjboss
+
+- name: init claritylims tenant
+  expect:
+    command: /opt/gls/clarity/config/pending/26_initialize_claritylims_tenant.sh
+    responses:
+      Enter required value for fully qualified domain name that identifies this tenant.*: "{{ lims_app_hostname }}"
+      Enter required value for database name for .*: "{{ lims_db_name }}"
+      Enter required value for database username for.*: "{{ lims_user.name }}"
+      Enter password value for database password for.*: "trusted-connection"
+      Confirm password value for database password.*: "trusted-connection"
+      Continue with database initialization.*: "y"
+      Enter required value for Clarity LIMS Administrative Email address.*: "{{ lims_admin_mail }}"
+      Enter required value for Admin Username.*: "admin"
+      Enter required value for admin's password.*: "resetthispasswordUb6aecai"
+      Enter required value for Facility Users Username.*: "facility"
+      Enter required value for facility's password.*: "resetthispasswordAech3hoh"
+      Enter required value for API Access Username: "{{ lims_api_user }}"
+      Enter required value for apiuser's password.*: "{{ lims_api_password }}"
+      Enter required value for File Server.*server.*: "{{ lims_app_hostname }}"
+      Enter required value for File Server.*directory.*: "/opt/gls/clarity/users/glsftp"
+      Enter required value for File Server.*username.*: "glsftp"
+      Configure password for external integrations.*: "{{ gls_users[2].password }}" # ugly hack accessing the user element like this
+      Confirm password value for File Server.*: "{{ gls_users[2].password }}"
+      WARNING.*: "y"
+      If you do not wish this data to be collected.*: "N"
+    removes: /opt/gls/clarity/config/pending/26_initialize_claritylims_tenant.sh
+    timeout: 300 # default is 30 seconds, but initing the db seems to take somewhat longer, so wait 5 min just in case
+  become: true
+  become_user: glsjboss
+
+- name: install proxy
+  expect:
+    command: /opt/gls/clarity/config/pending/40_root_install_proxy.sh
+    responses:
+      Press Any Key to proceed, or wait 60s to continue.*: "x"
+      Apache configured.*: ""
+    timeout: 300
+    removes: /opt/gls/clarity/config/pending/40_root_install_proxy.sh
+
+- name: configure limsserver ai
+  shell: /opt/gls/clarity/config/pending/50_configure_limsserver_ai.sh
+  args:
+    removes: /opt/gls/clarity/config/pending/50_configure_limsserver_ai.sh
+  become: true
+  become_user: glsai
+  tags: skip_ansible_lint
+
+- name: configure rabbitmq
+  expect:
+    command: /opt/gls/clarity/config/pending/32_root_configure_rabbitmq.sh
+    responses:
+      Enter required value for hostname to be used by RabbitMQ.*: "{{ lims_app_hostname }}"
+    removes: /opt/gls/clarity/config/pending/32_root_configure_rabbitmq.sh
+

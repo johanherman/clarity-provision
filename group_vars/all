@@ -1,0 +1,7 @@
+---
+# Site wide default values
+
+snpseq_network: XXX.YYY.ZZZ.0
+snpseq_http_proxy: http://dns.to.suitable.caching.proxy.for.slow.downloads
+snpseq_http_proxy_port: 80
+

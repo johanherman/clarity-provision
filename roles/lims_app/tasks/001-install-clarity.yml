@@ -1,0 +1,14 @@
+- name: deploy yum repo file for Clarity to install from local mirror
+  template: src=Clarity.repo.j2 dest=/etc/yum.repos.d/Clarity.repo
+
+- name: install rabbitmq and Clarity main packages
+  yum: name={{ item }} state=present enablerepo={{ lims_repo_name }} update_cache=yes
+  with_items:
+    - rabbitmq-server
+    - "{{ lims_app_packages }}"
+
+- name: update password for gls users
+  user: name={{ item.name }} password={{ item.password }} update_password=always
+  with_items:
+    - "{{ gls_users }}"
+

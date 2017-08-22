@@ -1,0 +1,21 @@
+- hosts: lims-db
+  remote_user: root
+  roles:
+    - { role: lims_db, tags: lims-db, when: ansible_virtualization_type == "virtualbox" or ansible_hostname == "lims-db-dev" }
+  post_tasks:
+    - name: create postgresql dump dir
+      file: path="{{ psql_dump_path }}" state=directory owner="{{ psql_user }}"
+      tags: db-backup
+
+    - name: setup crontab to dump postgresql db each hour (backed up by TSM at minute 30, hour *, weekday *)
+      cron: name="dump postgresql db" weekday="*" hour="0" minute="15" user="{{ psql_user }}" job="/usr/bin/pg_dumpall | /bin/gzip > {{ psql_dump_path }}/`/bin/date +\%H`_{{ inventory_hostname_short }}_pg_dumpall.sql.gz"
+      tags: db-backup
+
+- hosts: lims-app
+  remote_user: root
+  pre_tasks:
+    - name: load ip_conntrack_ftp module for iptables ftp support
+      modprobe: name=ip_conntrack_ftp state=present
+      tags: always
+  roles:
+    - { role: lims_app, tags: lims-app, when: ansible_virtualization_type == "virtualbox" or ansible_hostname == "lims-dev" }

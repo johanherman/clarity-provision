@@ -1,0 +1,29 @@
+- name: download miniconda
+  get_url: url={{ miniconda_url }} dest={{ miniconda_src }} mode="ug+rwx"
+
+- name: install miniconda
+  shell: "{{ miniconda_src }} -b -p {{ miniconda_dest }}"
+  args:
+    creates: "{{ miniconda_dest }}/LICENSE.txt"
+  tags: skip_ansible_lint
+
+- name: create virtual python env for clarity ext env, as user glsai
+  shell: /usr/local/miniconda/bin/conda create --name clarity python=2 --y
+  args:
+    creates: "{{ lims_venv }}"
+  become: true
+  become_user: glsai
+  tags: skip_ansible_lint
+
+- name: copy profile settings clarity-ext.sh to be autoloaded in bash
+  copy: src=clarity-ext.sh dest=/etc/profile.d/
+
+- name: copy ftp-lims wrapper
+  copy: src=ftp-lims dest=/usr/local/bin/ mode="ugo+x"
+
+- name: create clarity-ext and log dir
+  file:
+    state: directory
+    path: /opt/clarity-ext/logs
+    owner: glsai
+    group: claritylims

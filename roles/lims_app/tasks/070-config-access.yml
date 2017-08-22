@@ -1,0 +1,30 @@
+- name: config api access
+  template: src=genologics.conf.j2 dest=/etc/genologics.conf
+
+- name: Set variables used in the command variable
+  set_fact:
+    api_url: "{{ lims_api_baseuri }}/api/"
+    perm_tool: "/opt/gls/clarity/tools/permissions/permissions-tool.jar"
+
+- name: Set command variable for updating permissions
+  set_fact:
+    perm_cmd: "java -jar {{ perm_tool }} -a {{ api_url }} -u {{ lims_api_user }} -p {{ lims_api_password }}"
+
+- name: api permission showSummary
+  shell: "{{ perm_cmd }} showSummary"
+  tags: skip_ansible_lint
+
+- name: api permission listPermissions
+  shell: "{{ perm_cmd }} listPermissions"
+  tags: skip_ansible_lint
+
+- name: remove built-int permissions for Researcher
+  shell: "{{ perm_cmd }} removePermission Researcher {{ item }}"
+  with_items:
+    - Project:create
+    - Project:delete
+    - Sample:create
+    - Sample:delete
+    - Sample:update
+    - SampleWorkflowAssignment
+  tags: skip_ansible_lint
